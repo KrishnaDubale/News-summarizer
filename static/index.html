@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI News Summarizer</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <p class="eyebrow">Local-first AI News Summarizer</p>
+        <h1>Ask for a topic and get a fast news digest.</h1>
+        <p class="subcopy">
+          Try prompts like “give me IPL news”, “AI news”, or “latest cricket updates”.
+        </p>
+      </section>
+
+      <section class="chat-card">
+        <form id="news-form" class="composer">
+          <label class="sr-only" for="query">News topic</label>
+          <input
+            id="query"
+            name="query"
+            type="text"
+            placeholder="Type a news request..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Summarize</button>
+        </form>
+
+        <section id="response-panel" class="response-panel empty">
+          <p class="placeholder">Your summary will appear here.</p>
+        </section>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
