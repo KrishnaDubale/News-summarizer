@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import ssl
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+
+import certifi
 
 from app.config import settings
 from app.models import Article
@@ -10,6 +13,9 @@ from app.models import Article
 
 class GroqAPIError(Exception):
     """Raised when the Groq API cannot complete a summary request."""
+
+
+SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
 
 def summarize_with_groq(topic: str | None, articles: list[Article]) -> tuple[str, list[str]]:
@@ -44,7 +50,11 @@ def summarize_with_groq(topic: str | None, articles: list[Article]) -> tuple[str
     )
 
     try:
-        with urlopen(request, timeout=settings.request_timeout_seconds) as response:
+        with urlopen(
+            request,
+            timeout=settings.request_timeout_seconds,
+            context=SSL_CONTEXT,
+        ) as response:
             raw_payload = json.loads(response.read().decode("utf-8"))
     except HTTPError as exc:
         try:
