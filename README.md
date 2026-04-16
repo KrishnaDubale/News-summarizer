@@ -45,6 +45,30 @@ uvicorn app.main:app --reload
 
 5. Open `http://127.0.0.1:8000`
 
+## Deploy On Render
+
+This project is set up for [Render](https://render.com/) with the included [`render.yaml`](/Users/krishnapramoddubale/Documents/news/render.yaml).
+
+1. Push this repo to GitHub.
+2. In Render, create a new Blueprint and connect the GitHub repo.
+3. Render will detect `render.yaml` and create one Python web service.
+4. In the Render dashboard, set these secret environment variables:
+   - `NEWS_API_KEY`
+   - `GROQ_API_KEY`
+5. Deploy the service.
+
+Render uses:
+
+- Build command: `pip install -r requirements.txt`
+- Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- Health check: `/health`
+
+Notes:
+
+- The included config uses the `free` plan for a cheap first deployment.
+- Render free web services can spin down after about 15 minutes of inactivity.
+- The configured region is `singapore`, which is usually a reasonable choice from India.
+
 ## API
 
 `POST /summarize-news`
